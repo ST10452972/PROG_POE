@@ -95,7 +95,7 @@ class CyberSecurityBot
 
     static void RespondToUser(string input)
     {
-        Console.ForegroundColor = ConsoleColor.Green;
+        Console.ForegroundColor = ConsoleColor.Cyan;
         switch (input)
         {
             case "how are you?":
