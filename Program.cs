@@ -11,6 +11,9 @@ class CyberSecurityBot
         // Play voice greeting
         PlayVoiceGreeting();
 
+        //Display computer face
+        DisplayAsciiComputer();
+
 
         // Display ASCII logo
         DisplayAsciiArt();
@@ -26,7 +29,7 @@ class CyberSecurityBot
 
     static void PlayVoiceGreeting()
     {
-        string path = "greeting";//
+        string path = "greeting.wav";
 
         if (File.Exists(path))
         {
