@@ -6,6 +6,23 @@ using NAudio.Wave;
 
 class CyberSecurityBot
 {
+    static Dictionary<string, List<string>> keywordResponses = new Dictionary<string, List<string>>()
+        {
+            {"password", new List<string> {
+                "Use strong, unique passwords for each account.",
+                "Avoid using your name or birthday in passwords.",
+                "Consider using a password manager to store your credentials."}},
+
+            {"phishing", new List<string> {
+                "Never click on suspicious links in emails.",
+                "Watch for spelling mistakes in emails asking for your login details.",
+                "Always verify the sender's email address."}},
+
+            {"privacy", new List<string> {
+                "Review your social media privacy settings regularly.",
+                "Be cautious about the personal information you share online.",
+                "Use two-factor authentication whenever possible."}}
+        };
     static void Main()
     {
         // Play voice greeting
@@ -75,6 +92,7 @@ class CyberSecurityBot
     
     ");
     }
+
 
     static void ChatbotLoop(string userName)
     {
