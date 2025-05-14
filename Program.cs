@@ -164,6 +164,37 @@ class CyberSecurityBot
             RespondToKeywords(input);
         }
     }
+    static void DetectSentiment(string input)
+    {
+        if (input.Contains("worried") || input.Contains("scared") || input.Contains("anxious") || input.Contains("overwhelmed"))
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("It's completely understandable to feel that way. Scammers and cyber threats can be intimidating. Let me share some tips to help you stay safe.");
+            Console.ResetColor();
+        }
+        else if (input.Contains("curious") || input.Contains("interested"))
+        {
+            Console.WriteLine("Curiosity is great! Learning more about cybersecurity is one of the best ways to protect yourself online.");
+        }
+        else if (input.Contains("frustrated") || input.Contains("confused"))
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("I'm here to help clear things up. Cybersecurity can be tricky, but you're not alone.");
+            Console.ResetColor();
+        }
+    }
+    static void RememberInterest(string input)
+    {
+        foreach (var keyword in keywordResponses.Keys)
+        {
+            if (input.Contains(keyword))
+            {
+                userInterest = keyword;
+                Console.WriteLine($"Great! I'll remember that you're interested in {keyword}. It's an important part of staying safe online.\n");
+                break;
+            }
+        }
+    }
 
     static void RespondToUser(string input)
     {
