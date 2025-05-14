@@ -126,20 +126,42 @@ class CyberSecurityBot
     }
 
 
-    static void ChatbotLoop(string userName)
+    static void MainLoop()
     {
         while (true)
         {
-            Console.Write("\nAsk me a cybersecurity question (or type 'exit' to quit): ");
-            string userInput = Console.ReadLine().Trim().ToLower();
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Write($"{userName}, what would you like to ask me? (Type 'exit' to quit)> ");
+            Console.ResetColor();
+            string input = Console.ReadLine().ToLower();
 
-            if (userInput == "exit")
+            if (string.IsNullOrWhiteSpace(input))
             {
-                Console.WriteLine("Goodbye! Stay safe online.");
+                Console.WriteLine("[!] Please enter a valid question.");
+                continue;
+            }
+
+            if (input.Contains("exit"))
+            {
+                Console.WriteLine("Goodbye! Stay safe out there.");
                 break;
             }
 
-            RespondToUser(userInput);
+            if (Regex.IsMatch(input, "^\\d+$"))
+            {
+                Console.WriteLine("[!] That looks like a number. Please ask a question using words.");
+                continue;
+            }
+
+            if (Regex.IsMatch(input, "^[a-zA-Z]+$") && !keywordResponses.ContainsKey(input))
+            {
+                Console.WriteLine("[!] That looks like a string of letters, but I didn’t recognize the topic. Please try a more complete question.");
+                continue;
+            }
+
+            DetectSentiment(input);
+            RememberInterest(input);
+            RespondToKeywords(input);
         }
     }
 
