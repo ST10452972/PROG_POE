@@ -23,6 +23,10 @@ class CyberSecurityBot
                 "Be cautious about the personal information you share online.",
                 "Use two-factor authentication whenever possible."}}
         };
+    static string userName = "";
+    static string userInterest = "";
+    static string lastTopic = "";
+
     static void Main()
     {
         // Play voice greeting
@@ -35,11 +39,7 @@ class CyberSecurityBot
         // Display ASCII logo
         DisplayAsciiArt();
 
-        // Ask for user name
-        Console.Write("Enter your name: ");
-        string userName = Console.ReadLine();
-        Console.WriteLine($"\nHello {userName}! Welcome to the Cybersecurity Awareness Bot.");
-
+       
         // Start chatbot interaction
         ChatbotLoop(userName);
     }
@@ -91,6 +91,38 @@ class CyberSecurityBot
       |__________________________|
     
     ");
+    }
+    static void GreetUser()
+    {
+        while (true)
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Write("What is your name? ");
+            Console.ResetColor();
+            userName = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(userName))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("[!] Name cannot be empty. Please enter a valid name.");
+                Console.ResetColor();
+                continue;
+            }
+
+            if (Regex.IsMatch(userName, "^\\d+$"))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("[!] Name cannot be numbers only. Please enter a valid name.");
+                Console.ResetColor();
+                continue;
+            }
+
+            break;
+        }
+
+        Console.ForegroundColor = ConsoleColor.Magenta;
+        Console.WriteLine($"Hello, {userName}! I'm here to help you stay safe online.");
+        Console.ResetColor();
     }
 
 
