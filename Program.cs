@@ -196,33 +196,33 @@ class CyberSecurityBot
         }
     }
 
-    static void RespondToUser(string input)
+    static void RespondToKeywords(string input)
     {
-        Console.ForegroundColor = ConsoleColor.Cyan;
-        switch (input)
+        bool matched = false;
+
+        foreach (var keyword in keywordResponses.Keys)
         {
-            case "how are you?":
-                Console.WriteLine("I'm a bot, so I don't have feelings, but I'm here to help!");
-                break;
-            case "what’s your purpose?":
-                Console.WriteLine("I provide cybersecurity tips to help you stay safe online.");
-                break;
-            case "what can i ask you about?":
-                Console.WriteLine("You can ask about password safety, phishing, and safe browsing.");
-                break;
-            case "tell me about password safety":
-                Console.WriteLine("Use long, unique passwords and enable two-factor authentication.");
-                break;
-            case "what is phishing?":
-                Console.WriteLine("Phishing is a scam where attackers trick you into revealing sensitive information.");
-                break;
-            case "how can i browse safely?":
-                Console.WriteLine("Use secure websites, avoid public Wi-Fi, and enable browser security features.");
-                break;
-            default:
-                Console.WriteLine("I didn’t quite understand that. Could you rephrase?");
-                break;
+            if (input.Contains(keyword))
+            {
+                matched = true;
+                lastTopic = keyword;
+                Random rand = new Random();
+                List<string> responses = keywordResponses[keyword];
+                string reply = responses[rand.Next(responses.Count)];
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"{reply}");
+                Console.ResetColor();
+                return;
+            }
         }
-        Console.ResetColor();
+
+        if (!matched && !string.IsNullOrEmpty(lastTopic))
+        {
+            Console.WriteLine($"We were talking about {lastTopic}. Would you like more tips or details on that topic?");
+        }
+        else if (!matched)
+        {
+            Console.WriteLine("I didn’t quite understand that. Could you rephrase?");
+        }
     }
 }
